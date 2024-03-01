@@ -1,0 +1,18 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+  - echo '------------------------------------------BUILD IMAGE------------------------------------------'
+  - "cd DigitalMarketplace_BE"
+  - docker build -t viecvat247_be -f viecvat247_be/Dockerfile .
+  - docker images | grep "viecvat247_be" | grep -v "latest" | awk '{print $3}' | xargs docker rmi  || true        #xóa tất cả các images ngoại trừ image mới nhất
+  - echo '--------------------------------------------DEPLOY------------------------------------------'
+  - docker stop viecvat247_be-con  || true
+  - sleep 1
+  - docker run --rm -d --name viecvat247_be-con -p 8090:8090 viecvat247_be
+  only:
+    - main
+  tags:
+    - linux
