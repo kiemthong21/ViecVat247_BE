@@ -11,10 +11,10 @@ using viecvat247Service.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
-//{
-//    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-//});
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
